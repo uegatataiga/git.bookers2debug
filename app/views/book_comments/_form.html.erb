@@ -1,0 +1,5 @@
+
+<td><%= form_with model: [books, book_comment], local: false do |f| %></td>
+<td><%= f.text_area :comment, rows: '5', cols: '80', placeholder: "コメントをここに" %>
+    <%= f.submit "送信" %></td>
+<% end %>
