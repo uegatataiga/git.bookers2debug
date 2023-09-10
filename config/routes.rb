@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :book_comments, only: [:create, :destroy]
   end
   get "search" => "searches#search"
+  get 'tagsearches/search', to: 'tagsearches#search'
 
 
   resources :users, only: [:index,:show,:edit,:update] do
