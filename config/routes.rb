@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "search" => "searches#search"
   get 'tagsearches/search', to: 'tagsearches#search'
 
-  resources :groups, except: [:destroy]
+  resources :groups, except: [:destroy] do
+    resource :group_users, only: [:create, :destroy]
+   end
   resources :users, only: [:index,:show,:edit,:update] do
             member do
             get :follows, :followers
