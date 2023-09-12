@@ -3,13 +3,26 @@ class BooksController < ApplicationController
 
   def show
     @books = Book.find(params[:id])
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, book_id: @books.id)
+      current_user.read_counts.create(book_id: @books.id)
+    end
+
     @user = @books.user
     @book = Book.new
     @book_comment = BookComment.new
+    @books = Book.find(params[:id])
+
   end
 
+
   def index
-    @books = Book.all
+
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
+    @books = Book.all.sort {|a,b|
+      b.favorites.where(created_at: from...to).size <=>
+      a.favorites.where(created_at: from...to).size
+    }
     @book = Book.new
     @user = current_user
 
@@ -20,16 +33,8 @@ class BooksController < ApplicationController
     elsif params[:star_count]
     @books = Book.star_count
     else
-    @books = Book.all
+    @bboks = Book.all
     end
-
-    to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    @books = Book.includes(:favorited_users).
-      sort_by {|x|
-        x.favorited_users.includes(:favorites).where(created_at: from...to).size
-      }.reverse
-    @book = Book.new
   end
 
   def create
