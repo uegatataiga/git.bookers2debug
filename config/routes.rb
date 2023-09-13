@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "search" => "searches#search"
   get 'tagsearches/search', to: 'tagsearches#search'
 
+
   resources :groups, except: [:destroy] do
     resource :group_users, only: [:create, :destroy]
     get "new/mail" => "groups#new_mail"
@@ -22,6 +23,10 @@ Rails.application.routes.draw do
             end
             resource :relationships, only: [:create, :destroy]
   end
+
+  resources :users, only: [:show,:edit,:update]
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show]
 
 
 end
