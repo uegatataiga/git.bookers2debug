@@ -10,7 +10,7 @@ class BooksController < ApplicationController
     @user = @books.user
     @book = Book.new
     @book_comment = BookComment.new
-    @books = Book.find(params[:id])
+    
 
   end
 
@@ -33,7 +33,7 @@ class BooksController < ApplicationController
     elsif params[:star_count]
     @books = Book.star_count
     else
-    @bboks = Book.all
+    @books = Book.all
     end
   end
 

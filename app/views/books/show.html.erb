@@ -21,7 +21,7 @@
           <td>閲覧数: <%= @books.read_counts.count %></td>
           <td>
 　　      <% if @books.category.present? %>
-　　　　  <%=link_to@books.category,tagsearches_search_path(content:@book.category)%>
+　　　　  <%=link_to @books.category,tagsearches_search_path(content:@book.category)%>
 　　      <% end %>
           </td>
 
